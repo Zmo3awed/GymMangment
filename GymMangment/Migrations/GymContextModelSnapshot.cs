@@ -48,7 +48,9 @@ namespace GymMangment.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("JoinDate")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -64,7 +66,7 @@ namespace GymMangment.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.ComplexProperty<Dictionary<string, object>>("Address", "GymMangment.Entityes.Member.Address#Address", b1 =>
@@ -95,7 +97,7 @@ namespace GymMangment.Migrations
                         {
                             t.HasCheckConstraint("CheckEmailForm", "[Email] like '_%@_%._%'  ");
 
-                            t.HasCheckConstraint("CheckPhoneForm", "Phone like '010%' or Phone like '011%' or Phone like '012%' or Phone like '015%'");
+                            t.HasCheckConstraint("CheckPhoneForm", "(LEN(PHONE) = 11) AND (Phone like '010%' or Phone like '011%' or Phone like '012%' or Phone like '015%')");
                         });
                 });
 
@@ -121,7 +123,7 @@ namespace GymMangment.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("planId")
@@ -166,7 +168,7 @@ namespace GymMangment.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -206,7 +208,7 @@ namespace GymMangment.Migrations
                     b.Property<int>("TrainerId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -230,7 +232,9 @@ namespace GymMangment.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
@@ -259,7 +263,7 @@ namespace GymMangment.Migrations
                     b.Property<int>("Speciality")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.ComplexProperty<Dictionary<string, object>>("Address", "GymMangment.Entityes.Trainer.Address#Address", b1 =>
@@ -291,7 +295,7 @@ namespace GymMangment.Migrations
                             t.HasCheckConstraint("CheckEmailForm", "[Email] like '_%@_%._%'  ")
                                 .HasName("CheckEmailForm1");
 
-                            t.HasCheckConstraint("CheckPhoneForm", "Phone like '010%' or Phone like '011%' or Phone like '012%' or Phone like '015%'")
+                            t.HasCheckConstraint("CheckPhoneForm", "(LEN(PHONE) = 11) AND (Phone like '010%' or Phone like '011%' or Phone like '012%' or Phone like '015%')")
                                 .HasName("CheckPhoneForm1");
                         });
                 });

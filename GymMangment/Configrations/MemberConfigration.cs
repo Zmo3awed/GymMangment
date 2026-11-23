@@ -7,14 +7,16 @@ namespace GymMangment.Configrations
 {
     public class MemberConfigration : GymUserConfigration<Member>,IEntityTypeConfiguration<Member>
     {
-        public void Configure(EntityTypeBuilder<Member> builder)
+        public new void Configure(EntityTypeBuilder<Member> builder)
         {
             builder.Property(p => p.CreatedAt)
                 .HasDefaultValueSql("GETDATE()");
-            
+            builder.Property(p => p.JoinDate).HasDefaultValueSql("GETDATE()");
 
-             
             base.Configure(builder);
+
+
+
 
         }
     }

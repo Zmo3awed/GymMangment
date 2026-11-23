@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace GymMangment.Configrations
 {
-    public class TrainerConfigration :GymUserConfigration<Trainer>,IEntityTypeConfiguration<Trainer>
+    public class TrainerConfigration : GymUserConfigration<Trainer>, IEntityTypeConfiguration<Trainer>
     {
-        public void OnModling(EntityTypeBuilder<Trainer> builder) 
+        public new void Configure (EntityTypeBuilder<Trainer> builder) 
         {
             builder.Property(x => x.CreatedAt).HasDefaultValueSql("GETDATE()");
 

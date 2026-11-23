@@ -29,7 +29,7 @@ namespace GymMangment.Configrations
             builder.ToTable(t =>
             {
                 t.HasCheckConstraint("CheckEmailForm", "[Email] like '_%@_%._%'  ");
-                t.HasCheckConstraint("CheckPhoneForm", "Phone like '010%' or Phone like '011%' or Phone like '012%' or Phone like '015%'");
+                t.HasCheckConstraint("CheckPhoneForm", "(LEN(PHONE) = 11) AND (Phone like '010%' or Phone like '011%' or Phone like '012%' or Phone like '015%')");
                 
             });
             builder.ComplexProperty(p => p.Address);

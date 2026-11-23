@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GymMangment.Migrations
 {
     /// <inheritdoc />
-    public partial class IntialCreation : Migration
+    public partial class CreationMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,13 +17,13 @@ namespace GymMangment.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    JoinDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    JoinDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     Photo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address_Building = table.Column<int>(type: "int", nullable: false),
                     Address_City = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address_Street = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Name = table.Column<string>(type: "VARCHAR(50)", maxLength: 50, nullable: false),
                     Email = table.Column<string>(type: "VARCHAR(100)", maxLength: 100, nullable: false),
                     Phone = table.Column<string>(type: "VARCHAR(11)", maxLength: 11, nullable: false),
@@ -34,7 +34,7 @@ namespace GymMangment.Migrations
                 {
                     table.PrimaryKey("PK_Members", x => x.Id);
                     table.CheckConstraint("CheckEmailForm", "[Email] like '_%@_%._%'  ");
-                    table.CheckConstraint("CheckPhoneForm", "Phone like '010%' or Phone like '011%' or Phone like '012%' or Phone like '015%'");
+                    table.CheckConstraint("CheckPhoneForm", "(LEN(PHONE) = 11) AND (Phone like '010%' or Phone like '011%' or Phone like '012%' or Phone like '015%')");
                 });
 
             migrationBuilder.CreateTable(
@@ -49,7 +49,7 @@ namespace GymMangment.Migrations
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -68,8 +68,8 @@ namespace GymMangment.Migrations
                     Address_Building = table.Column<int>(type: "int", nullable: false),
                     Address_City = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address_Street = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Name = table.Column<string>(type: "VARCHAR(50)", maxLength: 50, nullable: false),
                     Email = table.Column<string>(type: "VARCHAR(100)", maxLength: 100, nullable: false),
                     Phone = table.Column<string>(type: "VARCHAR(11)", maxLength: 11, nullable: false),
@@ -80,7 +80,7 @@ namespace GymMangment.Migrations
                 {
                     table.PrimaryKey("PK_Trainers", x => x.Id);
                     table.CheckConstraint("CheckEmailForm1", "[Email] like '_%@_%._%'  ");
-                    table.CheckConstraint("CheckPhoneForm1", "Phone like '010%' or Phone like '011%' or Phone like '012%' or Phone like '015%'");
+                    table.CheckConstraint("CheckPhoneForm1", "(LEN(PHONE) = 11) AND (Phone like '010%' or Phone like '011%' or Phone like '012%' or Phone like '015%')");
                 });
 
             migrationBuilder.CreateTable(
@@ -94,7 +94,7 @@ namespace GymMangment.Migrations
                     MemberId = table.Column<int>(type: "int", nullable: false),
                     planId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -125,7 +125,7 @@ namespace GymMangment.Migrations
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TrainerId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {

@@ -1,8 +1,9 @@
-﻿@model IEnumerable<Plan>
+﻿@model IEnumerable<PlanViewModel>
 @{
-	ViewData["Title"] = "Plans";
+
 	// if there is onther layout you need instade of the layout in ViewStarts
 	//  override it here by Layout = "*******"
+
 }
 <style>
 	.grid-cards {
@@ -20,6 +21,26 @@
 			text-align: center;
 		}
 </style>
+
+@if (TempData["ErrorMessage"] is not null || TempData["SucsessMessage"] is not null)
+{
+	<div class="toasts" role="status" aria-live="polite">
+		@if (TempData["SucsessMessage"] is not null)
+		{
+			<div class="toast-r"><i class="bi bi-check-circle-fill"></i><span>@TempData["SucsessMessage"]</span><button type="button" aria-label="Close">&times;</button></div>
+		}
+		@if (TempData["ErrorMessage"] is not null)
+		{
+
+			<div class="toast-r error"><i class="bi bi-exclamation-circle-fill"></i><span>@TempData["ErrorMessage"]</span><button type="button" aria-label="Close">&times;</button></div>
+		}
+	</div>
+
+}
+
+
+
+
 <main class="content">
 
 	<div class="page-head">
